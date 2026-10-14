@@ -1,0 +1,103 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+
+  /* Paleta inspired en Prime Video */
+  --color-fondo: #0f1729;
+  --color-fondo-2: #131e33;
+  --color-superficie: #1a2437;
+  --color-borde: #263248;
+  --color-primario: #00a8e1;
+  --color-primario-fuerte: #007eb5;
+  --color-primario-tenue: #00a8e133;
+  --color-acento: #14b8a6;
+
+  --radius-base: 0.5rem;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-fondo font-sans text-white antialiased;
+  }
+
+  ::selection {
+    @apply bg-primario/40 text-white;
+  }
+
+  /* Scrollbar discreta y acorde al tema */
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: var(--color-borde) transparent;
+  }
+
+  *::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+
+  *::-webkit-scrollbar-thumb {
+    @apply rounded-full bg-borde;
+  }
+
+  *::-webkit-scrollbar-thumb:hover {
+    @apply bg-primario/60;
+  }
+
+  :focus-visible {
+    @apply outline-2 outline-offset-2 outline-primario;
+  }
+}
+
+@keyframes fundido {
+  from {
+    opacity: 0;
+    transform: scale(1.04);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@layer components {
+  /* Los carruseles de Swiper necesitan sangrar para que las flechas no se corten */
+  .carrusel-flechas {
+    --swiper-navigation-color: #fff;
+    --swiper-navigation-size: 28px;
+
+    & [class~="swiper-button-next"] {
+      right: 0;
+    }
+
+    & [class~="swiper-button-prev"] {
+      left: 0;
+    }
+
+    & [class~="swiper-button-disabled"] {
+      opacity: 0;
+    }
+  }
+
+  .sin-barra::-webkit-scrollbar {
+    display: none;
+  }
+
+  .sin-barra {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+}
+
+@utility ocultar-scroll-x {
+  overflow-x: hidden;
+  scrollbar-width: none;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
